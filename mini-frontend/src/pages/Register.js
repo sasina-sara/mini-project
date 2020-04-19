@@ -1,9 +1,12 @@
 import React from "react";
+import MainLayout from "layouts/MainLayout";
+import RegisterForm from "components/RegisterForm";
 
-export const Register = () => {
+const Register = () => {
   return (
-    <div>
-      <h1>Register Pages</h1>
-    </div>
+    <MainLayout>
+      <RegisterForm />
+    </MainLayout>
   );
 };
+export default Register;

@@ -1,4 +1,6 @@
 import React from "react";
+import firebase from "firebase/app";
+import "firebase/auth";
 import { Form, Input, Button, Checkbox } from "antd";
 
 const layout = {
@@ -16,9 +18,22 @@ const tailLayout = {
   },
 };
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const onFinish = (values) => {
     console.log("Success:", values);
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(values.email, values.password)
+      .then((value) => {
+        // TODO: redirect to login
+        console.log({
+          value,
+        });
+      })
+      .catch((error) => {
+        // TODO: alert
+        console.error(error.message);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -74,4 +89,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

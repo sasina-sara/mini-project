@@ -1,10 +1,12 @@
 import React from "react";
+import MainLayout from "layouts/MainLayout";
+import LoginForm from "components/LoginForm";
 
 const Login = () => {
   return (
-    <div>
-      <h1>Login Pages</h1>
-    </div>
+    <MainLayout>
+      <LoginForm />
+    </MainLayout>
   );
 };
 
