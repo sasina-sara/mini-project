@@ -4,10 +4,11 @@ import app from "../base";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(() => app.auth().currentUser);
 
   useEffect(() => {
-    app.auth().onAuthStateChanged(setCurrentUser);
+    const unsubscribe = app.auth().onAuthStateChanged(setCurrentUser);
+    return unsubscribe;
   }, []);
 
   return (
