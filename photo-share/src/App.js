@@ -6,6 +6,7 @@ import Signup from "pages/Signup";
 import { AuthProvider } from "contexts/AuthContext";
 import PrivateRoute from "components/PrivateRoute";
 import Dashboard from "pages/Dashboard";
+import AddPhoto from "pages/AddPhoto";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/add-photo" component={AddPhoto} />
         </>
       </Router>
     </AuthProvider>

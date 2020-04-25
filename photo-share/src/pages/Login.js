@@ -3,14 +3,7 @@ import firebase from "firebase/app";
 import app from "../base";
 import { useHistory, Redirect } from "react-router-dom";
 import { AuthContext } from "contexts/AuthContext";
-import {
-  Typography,
-  TextField,
-  Button,
-  Grid,
-  Box,
-  Divider,
-} from "@material-ui/core";
+import { Typography, TextField, Button, Grid, Box } from "@material-ui/core";
 import MainLayout from "layouts/MainLayout";
 
 const Login = () => {
