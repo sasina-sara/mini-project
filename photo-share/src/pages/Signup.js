@@ -1,29 +1,35 @@
-import React, { useCallback } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import app from "../base";
+import firebase from "firebase/app";
+import "firebase/auth";
 import { Typography, TextField, Button, Grid, Box } from "@material-ui/core";
 import MainLayout from "layouts/MainLayout";
+import useFirebaseAuth from "hooks/useFirebaseAuth";
 
 const Signup = () => {
   const history = useHistory();
+  const { user } = useFirebaseAuth();
 
-  const handleSignUp = useCallback(
-    async (event) => {
-      event.preventDefault();
-      const { email, password, confirmPassword } = event.target.elements;
-      if (password.value === confirmPassword.value) {
-        try {
-          await app
-            .auth()
-            .createUserWithEmailAndPassword(email.value, password.value);
-          history.push("/");
-        } catch (error) {
-          alert(error);
-        }
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    const { email, password, confirmPassword } = event.target.elements;
+    if (password.value === confirmPassword.value) {
+      try {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email.value, password.value);
+        history.push("/");
+      } catch (error) {
+        alert(error);
       }
-    },
-    [history]
-  );
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      history.replace("/dashboard");
+    }
+  }, [user]);
 
   return (
     <MainLayout>

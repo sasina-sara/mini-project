@@ -5,13 +5,16 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import theme from "styles/theme";
+import FirebaseContextProvider from "contexts/FirebaseContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      <App />
+      <FirebaseContextProvider>
+        <App />
+      </FirebaseContextProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")

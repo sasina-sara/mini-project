@@ -1,38 +1,37 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import firebase from "firebase/app";
-import app from "../base";
-import { useHistory, Redirect } from "react-router-dom";
-import { AuthContext } from "contexts/AuthContext";
+import "firebase/auth";
+import { useHistory, Redirect, useLocation } from "react-router-dom";
 import { Typography, TextField, Button, Grid, Box } from "@material-ui/core";
 import MainLayout from "layouts/MainLayout";
+import useFirebaseAuth from "hooks/useFirebaseAuth";
 
 const Login = () => {
+  const { user } = useFirebaseAuth();
   const history = useHistory();
-  const { currentUser } = useContext(AuthContext);
+  const location = useLocation();
 
-  const handleLogin = useCallback(
-    async (event) => {
-      event.preventDefault();
-      const { email, password } = event.target.elements;
-      try {
-        await app
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value);
-        history.push("/dashboard");
-      } catch (error) {
-        alert(error);
-      }
-    },
-    [history]
-  );
+  const { from } = location.state || { from: { pathname: "/" } };
 
-  const handleSignInWithGoogle = (event) => {
-    app.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  const handleSignIn = (event) => {
+    const { email, password } = event.target.elements;
+    try {
+      firebase.auth().signInWithEmailAndPassword(email.value, password.value);
+      history.push("/dashboard");
+    } catch (error) {
+      alert(error);
+    }
   };
 
-  if (currentUser) {
-    return <Redirect to="/dashboard" />;
-  }
+  const handleSignInWithGoogle = (event) => {
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  };
+
+  useEffect(() => {
+    if (user) {
+      history.push(from);
+    }
+  }, [user]);
 
   return (
     <MainLayout>
@@ -43,7 +42,7 @@ const Login = () => {
       </Box>
       <Grid container spacing={3} justify="center">
         <Grid item container xs={12} sm={6} justify="center">
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleSignIn}>
             <Grid container spacing={3}>
               <Grid item container>
                 <TextField

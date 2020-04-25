@@ -8,20 +8,21 @@ import {
   Typography,
   Box,
 } from "@material-ui/core";
-import app from "../../base";
-import { AuthContext } from "contexts/AuthContext";
 import useStyles from "./style";
 import { useHistory } from "react-router-dom";
+import firebase from "firebase/app";
+import "firebase/auth";
+import useFirebaseAuth from "hooks/useFirebaseAuth";
 
 const MainLayout = ({ children }) => {
   const classes = useStyles();
 
   const history = useHistory();
 
-  const { currentUser } = useContext(AuthContext);
+  const { user } = useFirebaseAuth();
 
   const handleLogout = (event) => {
-    app.auth().signOut();
+    firebase.auth().signOut();
   };
 
   const handleGoToSignIn = (event) => {
@@ -43,7 +44,7 @@ const MainLayout = ({ children }) => {
           <Typography variant="h6" className={classes.title}>
             Photo Share
           </Typography>
-          {currentUser ? (
+          {user ? (
             <Button color="inherit" onClick={handleLogout}>
               Logout
             </Button>
