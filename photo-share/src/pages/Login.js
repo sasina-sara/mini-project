@@ -1,8 +1,16 @@
 import React, { useCallback, useContext } from "react";
+import firebase from "firebase/app";
 import app from "../base";
 import { useHistory, Redirect } from "react-router-dom";
 import { AuthContext } from "contexts/AuthContext";
-import { Typography, TextField, Button, Grid, Box } from "@material-ui/core";
+import {
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  Box,
+  Divider,
+} from "@material-ui/core";
 import MainLayout from "layouts/MainLayout";
 
 const Login = () => {
@@ -25,6 +33,10 @@ const Login = () => {
     [history]
   );
 
+  const handleSignInWithGoogle = (event) => {
+    app.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  };
+
   if (currentUser) {
     return <Redirect to="/dashboard" />;
   }
@@ -37,7 +49,7 @@ const Login = () => {
         </Typography>
       </Box>
       <Grid container spacing={3} justify="center">
-        <Grid item container xs={12} sm={6}>
+        <Grid item container xs={12} sm={6} justify="center">
           <form onSubmit={handleLogin}>
             <Grid container spacing={3}>
               <Grid item container>
@@ -65,6 +77,15 @@ const Login = () => {
               </Grid>
             </Grid>
           </form>
+        </Grid>
+        <Grid item container xs={12} justify="center">
+          <Button
+            color="primary"
+            onClick={handleSignInWithGoogle}
+            variant="outlined"
+          >
+            G
+          </Button>
         </Grid>
       </Grid>
     </MainLayout>
