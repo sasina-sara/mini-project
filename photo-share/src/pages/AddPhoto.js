@@ -65,6 +65,7 @@ const AddPhoto = () => {
                 location: location,
                 tag: tag,
                 filename: fileName,
+                upload_time: new Date().toISOString(),
               })
               .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);

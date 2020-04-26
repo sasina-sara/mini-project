@@ -1,11 +1,15 @@
 import React from "react";
 import MainLayout from "layouts/MainLayout";
-import { Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
+import RecentImagesBoard from "components/RecentImagesBord";
 
 const Dashboard = () => {
   return (
     <MainLayout>
-      <Typography variant="h3">Dashboard</Typography>
+      <Box mb={3}>
+        <Typography variant="h6">Recently Images</Typography>
+      </Box>
+      <RecentImagesBoard />
     </MainLayout>
   );
 };
