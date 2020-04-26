@@ -6,6 +6,7 @@ import firebase from "firebase/app";
 import "firebase/storage";
 import "firebase/firestore";
 import useFirebaseAuth from "hooks/useFirebaseAuth";
+import { useHistory } from "react-router-dom";
 
 const AddPhoto = () => {
   const [files, setFiles] = useState([]);
@@ -14,6 +15,7 @@ const AddPhoto = () => {
   const [location, setLocation] = useState("");
   const [tag, setTag] = useState("");
 
+  const history = useHistory();
   const { user } = useFirebaseAuth();
 
   useEffect(() => {
@@ -69,6 +71,7 @@ const AddPhoto = () => {
               })
               .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
+                history.push("/dashboard");
               })
               .catch((error) => {
                 console.error("Error adding document: ", error);

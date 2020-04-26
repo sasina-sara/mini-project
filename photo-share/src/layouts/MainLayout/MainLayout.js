@@ -44,6 +44,21 @@ const MainLayout = ({ children }) => {
           <Typography variant="h6" className={classes.title}>
             Photo Share
           </Typography>
+          {user && (
+            <Button color="inherit" variant="text" href="/dashboard">
+              Dashboard
+            </Button>
+          )}
+          {user && (
+            <Button color="inherit" variant="text" href="/add-photo">
+              Add Photo
+            </Button>
+          )}
+          {!user && (
+            <Button color="inherit" variant="text" href="/signup">
+              Sign Up
+            </Button>
+          )}
           {user ? (
             <Button color="inherit" onClick={handleLogout}>
               Logout
