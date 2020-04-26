@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import TitlebarGridList from "components/TitlebarGridList";
+import ShowImagesDialog from "components/ShowImageDialog/ShowImageDialog";
 
 const RecentImagesBoard = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState(null);
 
   const storageRef = firebase.storage().ref();
   const imagesRef = storageRef.child("images");
@@ -48,13 +50,29 @@ const RecentImagesBoard = () => {
     console.log({ images });
   }, [images]);
 
+  useEffect(() => {
+    console.log({ selected });
+  }, [selected]);
+
   if (loading) {
     return <div>Images loading...</div>;
   }
 
   return (
     <div>
-      <TitlebarGridList titleData={images} />
+      <TitlebarGridList
+        onSelect={(value) => {
+          setSelected(value);
+        }}
+        titleData={images}
+      />
+      <ShowImagesDialog
+        data={selected}
+        open={selected ? true : false}
+        onClose={() => {
+          setSelected(null);
+        }}
+      />
     </div>
   );
 };

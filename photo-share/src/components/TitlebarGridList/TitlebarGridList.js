@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TitlebarGridList({ titleData }) {
+export default function TitlebarGridList({ titleData, onSelect }) {
   const classes = useStyles();
 
   return (
@@ -44,6 +44,11 @@ export default function TitlebarGridList({ titleData }) {
                 <IconButton
                   aria-label={`info about ${tile.name}`}
                   className={classes.icon}
+                  onClick={(event) => {
+                    if (onSelect && typeof onSelect === "function") {
+                      onSelect(tile);
+                    }
+                  }}
                 >
                   <InfoIcon />
                 </IconButton>
