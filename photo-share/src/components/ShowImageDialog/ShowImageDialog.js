@@ -36,17 +36,26 @@ export default function ShowImagesDialog({ data, open, onClose }) {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            <Typography variant="h5">{`${data.name}`}</Typography>
+            <Typography
+              component="span"
+              variant="h5"
+            >{`${data.name}`}</Typography>
+            <br />
             <Typography
               color="textSecondary"
+              component="span"
               variant="subtitle1"
             >{`Uploaded by: ${data.user_id}`}</Typography>
+            <br />
             <Typography
               color="textSecondary"
+              component="span"
               variant="subtitle1"
             >{`Inspiration: ${data.inspiration}`}</Typography>
+            <br />
             <Typography
               color="textSecondary"
+              component="span"
               variant="subtitle1"
             >{`Location: ${data.location}`}</Typography>
           </DialogTitle>
