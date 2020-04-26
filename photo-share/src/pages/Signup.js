@@ -29,7 +29,7 @@ const Signup = () => {
     if (user) {
       history.replace("/dashboard");
     }
-  }, [user]);
+  }, [user, history]);
 
   return (
     <MainLayout>

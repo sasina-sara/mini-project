@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "pages/Home";
 import Login from "pages/Login";
 import Signup from "pages/Signup";
@@ -20,21 +20,23 @@ const App = () => {
   return (
     <Router>
       <>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/signup">
-          <Signup />
-        </Route>
-        <PrivateRoute path="/dashboard">
-          <Dashboard />
-        </PrivateRoute>
-        <PrivateRoute path="/add-photo">
-          <AddPhoto />
-        </PrivateRoute>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <PrivateRoute path="/dashboard">
+            <Dashboard />
+          </PrivateRoute>
+          <PrivateRoute path="/add-photo">
+            <AddPhoto />
+          </PrivateRoute>
+        </Switch>
       </>
     </Router>
   );

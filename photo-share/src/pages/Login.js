@@ -1,7 +1,7 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
-import { useHistory, Redirect, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Typography, TextField, Button, Grid, Box } from "@material-ui/core";
 import MainLayout from "layouts/MainLayout";
 import useFirebaseAuth from "hooks/useFirebaseAuth";
@@ -31,7 +31,7 @@ const Login = () => {
     if (user) {
       history.push(from);
     }
-  }, [user]);
+  }, [user, history, from]);
 
   return (
     <MainLayout>

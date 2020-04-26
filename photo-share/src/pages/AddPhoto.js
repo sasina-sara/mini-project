@@ -1,13 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "layouts/MainLayout";
 import { TextField, Button, Grid, Box } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import firebase from "firebase/app";
 import "firebase/storage";
+import "firebase/firestore";
 import useFirebaseAuth from "hooks/useFirebaseAuth";
 
 const AddPhoto = () => {
   const [files, setFiles] = useState([]);
+  const [pictureName, setPictureName] = useState("");
+  const [inspiration, setInspiration] = useState("");
+  const [location, setLocation] = useState("");
+  const [tag, setTag] = useState("");
+
   const { user } = useFirebaseAuth();
 
   useEffect(() => {
@@ -46,6 +52,26 @@ const AddPhoto = () => {
             case firebase.storage.TaskState.RUNNING: // or 'running'
               console.log("Upload is running");
               break;
+          }
+
+          if (progress === 100) {
+            // TODO: upload images data to Firestore
+            const db = firebase.firestore();
+            db.collection("images")
+              .add({
+                user_id: user.uid,
+                name: pictureName,
+                inspiration: inspiration,
+                location: location,
+                tag: tag,
+                filename: fileName,
+              })
+              .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+              })
+              .catch((error) => {
+                console.error("Error adding document: ", error);
+              });
           }
         },
         function (error) {
@@ -93,7 +119,11 @@ const AddPhoto = () => {
               fullWidth
               label="Picture Name"
               name="pictureName"
+              onChange={(event) => {
+                setPictureName(event.target.value);
+              }}
               type="text"
+              value={pictureName}
               variant="filled"
             />
           </Grid>
@@ -102,7 +132,11 @@ const AddPhoto = () => {
               fullWidth
               label="Inspiration"
               name="inspiration"
+              onChange={(event) => {
+                setInspiration(event.target.value);
+              }}
               type="text"
+              value={inspiration}
               variant="filled"
             />
           </Grid>
@@ -111,7 +145,11 @@ const AddPhoto = () => {
               fullWidth
               label="Location"
               name="location"
+              onChange={(event) => {
+                setLocation(event.target.value);
+              }}
               type="text"
+              value={location}
               variant="filled"
             />
           </Grid>
@@ -120,7 +158,11 @@ const AddPhoto = () => {
               fullWidth
               label="Tag"
               name="tag"
+              onChange={(event) => {
+                setTag(event.target.value);
+              }}
               type="text"
+              value={tag}
               variant="filled"
             />
           </Grid>

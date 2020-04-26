@@ -29,7 +29,7 @@ const FirebaseContextProvider = ({ children }) => {
       });
       return unsubscribe;
     }
-  }, [initializing]);
+  }, [initializing, userLoaded]);
 
   return (
     <FirebaseContext.Provider value={{ initializing }}>
