@@ -3,7 +3,7 @@ import MainLayout from "layouts/MainLayout";
 import { Typography, Box } from "@material-ui/core";
 import RecentImagesBoard from "components/RecentImagesBord";
 
-const Dashboard = () => {
+const Overview = () => {
   return (
     <MainLayout>
       <Box mb={3}>
@@ -14,4 +14,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Overview;

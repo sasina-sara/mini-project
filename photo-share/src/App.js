@@ -5,7 +5,7 @@ import Login from "pages/Login";
 import Signup from "pages/Signup";
 // import { AuthProvider } from "contexts/AuthContext";
 // import PrivateRoute from "components/PrivateRoute";
-import Dashboard from "pages/Dashboard";
+import Overview from "pages/Overview";
 import AddPhoto from "pages/AddPhoto";
 import useFirebase from "hooks/useFirebase";
 import PrivateRoute from "hoc/PrivateRoute";
@@ -30,8 +30,8 @@ const App = () => {
           <Route path="/signup">
             <Signup />
           </Route>
-          <PrivateRoute path="/dashboard">
-            <Dashboard />
+          <PrivateRoute path="/overview">
+            <Overview />
           </PrivateRoute>
           <PrivateRoute path="/add-photo">
             <AddPhoto />
