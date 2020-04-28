@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MainLayout from "layouts/MainLayout";
-import { TextField, Button, Grid, Box } from "@material-ui/core";
+import { TextField, Button, Grid, Box, Typography } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import firebase from "firebase/app";
 import "firebase/storage";
@@ -19,7 +19,7 @@ const AddPhoto = () => {
   const { user } = useFirebaseAuth();
 
   useEffect(() => {
-    console.log({ files });
+    // console.log({ files });
   }, [files]);
 
   const handleUploadFiles = (event) => {
@@ -33,7 +33,7 @@ const AddPhoto = () => {
 
       const fileName = `${user.uid}_${new Date().toISOString()}_${index}`;
 
-      console.log({ fileName });
+      // console.log({ fileName });
 
       const uploadTask = storageRef
         .child("images/" + fileName)
@@ -116,6 +116,9 @@ const AddPhoto = () => {
               setFiles(files);
             }}
           />
+        </Box>
+        <Box mb={3}>
+          <Typography variant="h6">Picture Info</Typography>
         </Box>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>

@@ -46,7 +46,7 @@ export default function TitlebarGridList({ titleData, onSelect }) {
                   className={classes.icon}
                   onClick={(event) => {
                     if (onSelect && typeof onSelect === "function") {
-                      onSelect(tile);
+                      onSelect(tile, index);
                     }
                   }}
                 >

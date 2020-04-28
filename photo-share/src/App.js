@@ -9,6 +9,7 @@ import Overview from "pages/Overview";
 import AddPhoto from "pages/AddPhoto";
 import useFirebase from "hooks/useFirebase";
 import PrivateRoute from "hoc/PrivateRoute";
+import Dashboard from "pages/Dashboard";
 
 const App = () => {
   const { initializing } = useFirebase();
@@ -32,6 +33,9 @@ const App = () => {
           </Route>
           <PrivateRoute path="/overview">
             <Overview />
+          </PrivateRoute>
+          <PrivateRoute path="/dashboard">
+            <Dashboard />
           </PrivateRoute>
           <PrivateRoute path="/add-photo">
             <AddPhoto />

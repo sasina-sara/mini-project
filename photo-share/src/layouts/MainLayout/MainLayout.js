@@ -7,6 +7,7 @@ import {
   Toolbar,
   Typography,
   Box,
+  Link,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useHistory } from "react-router-dom";
@@ -75,9 +76,17 @@ const MainLayout = ({ children }) => {
           )}
         </Toolbar>
       </AppBar>
-      <Container>
+      <Container style={{ minHeight: "100vh" }}>
         <Box py={3}>{children}</Box>
       </Container>
+      <Box style={{ backgroundColor: "#556cd6", color: "#fff" }} p={3}>
+        <Typography variant="subtitle1" align="center">
+          2020 &copy; Photo-Share by{" "}
+          <Link href="https://github.com/sasina-sara" color="inherit">
+            sasina-sara
+          </Link>
+        </Typography>
+      </Box>
     </>
   );
 };

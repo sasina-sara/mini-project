@@ -7,7 +7,11 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Typography } from "@material-ui/core";
 
-export default function ShowImagesDialog({ data, open, onClose }) {
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/storage";
+
+export default function EditImageDialog({ data, open, onClose, onEdit }) {
   // const [open, setOpen] = React.useState(false);
 
   // const handleClickOpen = () => {
@@ -18,6 +22,42 @@ export default function ShowImagesDialog({ data, open, onClose }) {
     // setOpen(false);
     if (onClose && typeof onClose === "function") {
       onClose();
+    }
+  };
+
+  const handleEdit = () => {
+    if (onEdit && typeof onEdit === "function") {
+      onEdit();
+    } else {
+      handleClose();
+    }
+  };
+
+  const handleDelete = () => {
+    if (window.confirm("Are you sure to delete this?")) {
+      firebase
+        .firestore()
+        .collection("images")
+        .doc(data.id)
+        .delete()
+        .then((value) => {
+          firebase
+            .storage()
+            .ref()
+            .child("images/" + data.originFilename)
+            .delete()
+            .then((value) => {
+              console.log("the image of item deleted successfully");
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+          console.log("the item deleted successfully");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      handleClose();
     }
   };
 
@@ -71,10 +111,13 @@ export default function ShowImagesDialog({ data, open, onClose }) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            {/* <Button onClick={handleClose} color="primary">
-            Disagree
-          </Button> */}
-            <Button onClick={handleClose} color="primary" autoFocus>
+            <Button onClick={handleEdit} color="primary">
+              Edit
+            </Button>
+            <Button onClick={handleDelete} color="secondary">
+              Delete
+            </Button>
+            <Button onClick={handleClose} autoFocus>
               Close
             </Button>
           </DialogActions>
