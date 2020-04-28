@@ -27,6 +27,10 @@ const Login = () => {
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
   };
 
+  const handleSignInWithFacebook = (event) => {
+    firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider());
+  };
+
   useEffect(() => {
     if (user) {
       history.push(from);
@@ -77,6 +81,13 @@ const Login = () => {
             variant="outlined"
           >
             G
+          </Button>
+          <Button
+            color="primary"
+            onClick={handleSignInWithFacebook}
+            variant="outlined"
+          >
+            F
           </Button>
         </Grid>
       </Grid>
