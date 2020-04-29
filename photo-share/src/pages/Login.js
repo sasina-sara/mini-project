@@ -28,7 +28,9 @@ const Login = () => {
   };
 
   const handleSignInWithFacebook = (event) => {
-    firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider());
+    firebase
+      .auth()
+      .signInWithRedirect(new firebase.auth.FacebookAuthProvider());
   };
 
   useEffect(() => {
