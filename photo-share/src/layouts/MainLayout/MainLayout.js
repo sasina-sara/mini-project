@@ -8,12 +8,14 @@ import {
   Typography,
   Box,
   Link,
+  Hidden,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
 import useFirebaseAuth from "hooks/useFirebaseAuth";
+import MenuMobile from "components/MenuMobile";
 
 const MainLayout = ({ children }) => {
   const classes = useStyles();
@@ -45,38 +47,43 @@ const MainLayout = ({ children }) => {
           <Typography variant="h6" className={classes.title}>
             Photo Share
           </Typography>
-          <Button color="inherit" variant="text" href="/">
-            Home
-          </Button>
-          {user && (
-            <Button color="inherit" variant="text" href="/overview">
-              Overview
+          <Hidden smUp>
+            <MenuMobile />
+          </Hidden>
+          <Hidden mdDown>
+            <Button color="inherit" variant="text" href="/">
+              Home
             </Button>
-          )}
-          {user && (
-            <Button color="inherit" variant="text" href="/dashboard">
-              Dashboard
-            </Button>
-          )}
-          {user && (
-            <Button color="inherit" variant="text" href="/add-photo">
-              Add Photo
-            </Button>
-          )}
-          {!user && (
-            <Button color="inherit" variant="text" href="/signup">
-              Sign Up
-            </Button>
-          )}
-          {user ? (
-            <Button color="inherit" onClick={handleLogout}>
-              Logout
-            </Button>
-          ) : (
-            <Button color="inherit" onClick={handleGoToSignIn}>
-              Login
-            </Button>
-          )}
+            {user && (
+              <Button color="inherit" variant="text" href="/overview">
+                Overview
+              </Button>
+            )}
+            {user && (
+              <Button color="inherit" variant="text" href="/dashboard">
+                Dashboard
+              </Button>
+            )}
+            {user && (
+              <Button color="inherit" variant="text" href="/add-photo">
+                Add Photo
+              </Button>
+            )}
+            {!user && (
+              <Button color="inherit" variant="text" href="/signup">
+                Sign Up
+              </Button>
+            )}
+            {user ? (
+              <Button color="inherit" onClick={handleLogout}>
+                Logout
+              </Button>
+            ) : (
+              <Button color="inherit" onClick={handleGoToSignIn}>
+                Login
+              </Button>
+            )}
+          </Hidden>
         </Toolbar>
       </AppBar>
       <Container style={{ minHeight: "100vh" }}>
